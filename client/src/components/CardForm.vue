@@ -111,6 +111,7 @@
 
 <script>
 // import Card from '@/components/Card'
+import payData from '../api/api'
 export default {
   name: 'CardForm',
   directives: {
@@ -264,7 +265,16 @@ export default {
       if (this.numError || this.nameError || this.monthError || this.yearError || this.cvvError) {
         return undefined
       }
-      console.log(this.formData)
+      const apiData = {
+        card_number: +this.formData.cardNumber,
+        card_name: this.formData.cardName,
+        card_expiration: `${this.formData.cardMonth}/${this.formData.cardYear}`,
+        card_cvv: +this.formData.cardCvv
+      }
+      const { error, data, sendData } = payData(apiData)
+      console.log(error)
+      console.log(data)
+      sendData()
     },
     blurCardNumber () {
       if (this.isCardNumberMasked) {
