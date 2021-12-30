@@ -8,8 +8,7 @@
       @input-card-year="updateCardYear"
       @input-card-cvv="updateCardCvv"
     />
-    <!-- backgroundImage="https://images.unsplash.com/photo-1572336183013-960c3e1a0b54?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80" -->
-  </div>
+    </div>
 </template>
 
 <script>
@@ -44,6 +43,7 @@ export default {
   },
   mounted () {
     this.$i18n.locale = navigator.language
+    console.log(navigator.language)
   }
 }
 </script>

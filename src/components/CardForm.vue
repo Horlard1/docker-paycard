@@ -1,6 +1,6 @@
 <template>
   <div class="card-form">
-    <div class="card-list">
+    <!-- <div class="card-list">
       <Card
         :fields="fields"
         :labels="formData"
@@ -8,7 +8,7 @@
         :randomBackgrounds="randomBackgrounds"
         :backgroundImage="backgroundImage"
       />
-    </div>
+    </div> -->
     <div class="card-form__inner">
       <div class="card-input">
         <label for="cardNumber" class="card-input__label">{{ $t('cardForm.cardNumber') }}</label>
@@ -99,13 +99,13 @@
         </div>
       </div>
 
-      <button class="card-form__button" v-on:click="invaildCard">{{ $t('cardForm.submit') }}</button>
+      <button class="card-form__button" @click="invaildCard">{{ $t('cardForm.submit') }}</button>
     </div>
   </div>
 </template>
 
 <script>
-import Card from '@/components/Card'
+// import Card from '@/components/Card'
 export default {
   name: 'CardForm',
   directives: {
@@ -153,9 +153,9 @@ export default {
       default: true
     }
   },
-  components: {
-    Card
-  },
+  // components: {
+  //   Card
+  // },
   data () {
     return {
       fields: {
@@ -229,9 +229,9 @@ export default {
     },
     invaildCard () {
       let number = this.formData.cardNumberNotMask.replace(/ /g, '')
-      var sum = 0
-      for (var i = 0; i < number.length; i++) {
-        var intVal = parseInt(number.substr(i, 1))
+      let sum = 0
+      for (let i = 0; i < number.length; i++) {
+        let intVal = parseInt(number.substr(i, 1))
         if (i % 2 === 0) {
           intVal *= 2
           if (intVal > 9) {
