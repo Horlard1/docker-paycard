@@ -1,6 +1,6 @@
 <template>
   <div class="card-form">
-    <!-- <div class="card-list">
+    <div class="card-list">
       <Card
         :fields="fields"
         :labels="formData"
@@ -8,7 +8,7 @@
         :randomBackgrounds="randomBackgrounds"
         :backgroundImage="backgroundImage"
       />
-    </div> -->
+    </div>
     <div class="card-form__inner">
       <div class="card-input">
         <label for="cardNumber" class="card-input__label">{{ $t('cardForm.cardNumber') }}</label>
@@ -110,8 +110,8 @@
 </template>
 
 <script>
-// import Card from '@/components/Card'
-import payData from '../api/api'
+import Card from '@/components/Card'
+import { payData } from '../api/api'
 export default {
   name: 'CardForm',
   directives: {
@@ -159,9 +159,9 @@ export default {
       default: true
     }
   },
-  // components: {
-  //   Card
-  // },
+  components: {
+    Card
+  },
   data () {
     return {
       fields: {
@@ -266,15 +266,12 @@ export default {
         return undefined
       }
       const apiData = {
-        card_number: +this.formData.cardNumber,
+        card_number: this.formData.cardNumberNotMask,
         card_name: this.formData.cardName,
         card_expiration: `${this.formData.cardMonth}/${this.formData.cardYear}`,
         card_cvv: +this.formData.cardCvv
       }
-      const { error, data, sendData } = payData(apiData)
-      console.log(error)
-      console.log(data)
-      sendData()
+      payData(apiData).then((res) => console.log(res))
     },
     blurCardNumber () {
       if (this.isCardNumberMasked) {

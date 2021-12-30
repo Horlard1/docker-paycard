@@ -1,6 +1,7 @@
 const validateRequest = (request, c) => {
   if (typeof request === 'object' && Object.keys(request).length > 0) {
     let result
+    console.log(request)
     result = Object.entries(request).map(i => {
       if (typeof i[1] === 'string') {
         return i[1].trim().length > 0 ? true : i[0]
