@@ -31,19 +31,23 @@ export default {
   },
   methods: {
     updateCardNumber (val) {
+      this.formData.cardNumber = val
     },
     updateCardName (val) {
+      this.formData.cardName = val
     },
     updateCardMonth (val) {
+      this.formData.cardMonth = val
     },
     updateCardYear (val) {
+      this.formData.cardYear = val
     },
     updateCardCvv (val) {
+      this.formData.cardYear = val
     }
   },
   mounted () {
     this.$i18n.locale = navigator.language
-    console.log(navigator.language)
   }
 }
 </script>

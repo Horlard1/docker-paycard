@@ -24,6 +24,7 @@
           data-card-field
           autocomplete="off"
         />
+        <small v-if="numError" class="error">{{ numError }}</small>
         <button
           class="card-input__eye"
           :class="{ '-active' : !isCardNumberMasked }"
@@ -45,6 +46,7 @@
           data-card-field
           autocomplete="off"
         />
+        <small v-if="nameError" class="error">{{ nameError }}</small>
       </div>
       <div class="card-form__row">
         <div class="card-form__col">
@@ -65,6 +67,7 @@
                 v-bind:key="n"
               >{{generateMonthValue(n)}}</option>
             </select>
+            <small v-if="monthError" class="error">{{ monthError }}</small>
             <select
               class="card-input__input -select"
               :id="fields.cardYear"
@@ -79,6 +82,7 @@
                 v-bind:key="n"
               >{{$index + minCardYear}}</option>
             </select>
+            <small v-if="yearError" class="error">{{ yearError }}</small>
           </div>
         </div>
         <div class="card-form__col -cvv">
@@ -95,11 +99,12 @@
               data-card-field
               autocomplete="off"
             />
+            <small v-if="cvvError" class="error">{{ cvvError }}</small>
           </div>
         </div>
       </div>
 
-      <button class="card-form__button" @click="invaildCard">{{ $t('cardForm.submit') }}</button>
+      <button class="card-form__button" @click="handleSubmit">{{ $t('cardForm.submit') }}</button>
     </div>
   </div>
 </template>
@@ -168,7 +173,12 @@ export default {
       minCardYear: new Date().getFullYear(),
       isCardNumberMasked: true,
       mainCardNumber: this.cardNumber,
-      cardNumberMaxLength: 19
+      cardNumberMaxLength: 19,
+      numError: '',
+      nameError: '',
+      monthError: '',
+      yearError: '',
+      cvvError: ''
     }
   },
   computed: {
@@ -241,8 +251,20 @@ export default {
         sum += intVal
       }
       if (sum % 10 !== 0) {
-        alert(this.$t('cardForm.invalidCardNumber'))
+        return true
       }
+      return false
+    },
+    handleSubmit () {
+      this.numError = this.formData.cardNumberNotMask.trim().length === 0 ? 'Kindly input card number' : this.invaildCard() ? 'Invalid Card Number' : ''
+      this.nameError = this.formData.cardName.trim() === '' ? 'Kindly input a card name' : ''
+      this.monthError = this.formData.cardMonth === '' ? 'month required' : ''
+      this.yearError = this.formData.cardYear === '' ? 'year required' : ''
+      this.cvvError = this.formData.cardCvv.trim() === '' ? 'Cvv required' : (this.formData.cardCvv.trim().length < 3 || this.formData.cardCvv.trim().length > 4) ? 'Invalid Cvv' : ''
+      if (this.numError || this.nameError || this.monthError || this.yearError || this.cvvError) {
+        return undefined
+      }
+      console.log(this.formData)
     },
     blurCardNumber () {
       if (this.isCardNumberMasked) {
