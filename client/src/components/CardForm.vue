@@ -52,37 +52,41 @@
         <div class="card-form__col">
           <div class="card-form__group">
             <label for="cardMonth" class="card-input__label">{{ $t('cardForm.expirationDate') }}</label>
-            <select
-              class="card-input__input -select"
-              :id="fields.cardMonth"
-              v-model="formData.cardMonth"
-              @change="changeMonth"
-              data-card-field
-            >
-              <option value disabled selected>{{ $t('cardForm.month') }}</option>
-              <option
-                v-bind:value="n < 10 ? '0' + n : n"
-                v-for="n in 12"
-                v-bind:disabled="n < minCardMonth"
-                v-bind:key="n"
-              >{{generateMonthValue(n)}}</option>
-            </select>
-            <small v-if="monthError" class="error">{{ monthError }}</small>
-            <select
-              class="card-input__input -select"
-              :id="fields.cardYear"
-              v-model="formData.cardYear"
-              @change="changeYear"
-              data-card-field
-            >
-              <option value disabled selected>{{ $t('cardForm.year') }}</option>
-              <option
-                v-bind:value="$index + minCardYear"
-                v-for="(n, $index) in 12"
-                v-bind:key="n"
-              >{{$index + minCardYear}}</option>
-            </select>
-            <small v-if="yearError" class="error">{{ yearError }}</small>
+            <div>
+                <select
+                class="card-input__input -select"
+                :id="fields.cardMonth"
+                v-model="formData.cardMonth"
+                @change="changeMonth"
+                data-card-field
+              >
+                <option value disabled selected>{{ $t('cardForm.month') }}</option>
+                <option
+                  v-bind:value="n < 10 ? '0' + n : n"
+                  v-for="n in 12"
+                  v-bind:disabled="n < minCardMonth"
+                  v-bind:key="n"
+                >{{generateMonthValue(n)}}</option>
+              </select>
+              <small v-if="monthError" class="error">{{ monthError }}</small>
+            </div>
+            <div>
+                <select
+                class="card-input__input -select"
+                :id="fields.cardYear"
+                v-model="formData.cardYear"
+                @change="changeYear"
+                data-card-field
+              >
+                <option value disabled selected>{{ $t('cardForm.year') }}</option>
+                <option
+                  v-bind:value="$index + minCardYear"
+                  v-for="(n, $index) in 12"
+                  v-bind:key="n"
+                >{{$index + minCardYear}}</option>
+              </select>
+              <small v-if="yearError" class="error">{{ yearError }}</small>
+          </div>
           </div>
         </div>
         <div class="card-form__col -cvv">
