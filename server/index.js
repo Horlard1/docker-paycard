@@ -35,6 +35,12 @@ server.post('/payment', mainValidate, (req, res) => {
   }
 })
 
+if(process.env.NODE_ENV === 'production'){
+  server.use(express.static(__dirname + '/public/'))
+
+  server.get(/.*/, (req, res)=> res.sendFile(__dirname + '/public/index.html'))
+}
+
 server.listen(PORT, () => {
   console.log(`App on ${PORT}`)
 })
