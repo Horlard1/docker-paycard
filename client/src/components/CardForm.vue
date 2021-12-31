@@ -271,7 +271,18 @@ export default {
         card_expiration: `${this.formData.cardMonth}/${this.formData.cardYear}`,
         card_cvv: +this.formData.cardCvv
       }
-      payData(apiData).then((res) => console.log(res))
+      this.$emit('load')
+      setTimeout(() => {
+        payData(apiData).then((res) => {
+          if (res.status === 200) {
+            this.$emit('load')
+            this.$emit('datas', res.data.data)
+          } else {
+            this.$emit('load')
+            this.$emit('err')
+          }
+        })
+      }, 2000)
     },
     blurCardNumber () {
       if (this.isCardNumberMasked) {

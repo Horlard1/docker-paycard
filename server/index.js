@@ -27,7 +27,8 @@ server.post('/payment', mainValidate, (req, res) => {
       details: {
         number: card_number,
         expires: card_expiration,
-        cvv: card_cvv
+        cvv: card_cvv,
+        time: new Date().toLocaleDateString()
       }
     }
     res.status(200).json({ data })
